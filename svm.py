@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split
 import re
 import seaborn as sns
 import matplotlib.pyplot as plt
+import pickle
 
 pos_rev = pd.read_csv("Data/pos.txt", sep = "\n", header = None, encoding = 'latin-1')
 pos_rev = pd.concat([pos_rev,pd.Series(np.ones(pos_rev.shape[0]))], ignore_index=True, axis =1)
@@ -56,6 +57,9 @@ vectorizer = TfidfVectorizer(min_df = 5,
 train_vectors = vectorizer.fit_transform(train_data['review'])
 test_vectors = vectorizer.transform(test_data['review'])
 
+#saving the transform model
+pickle.dump(cv, open('tranform.pkl', 'wb'))
+
 classifier_linear = svm.SVC(kernel='linear')
 classifier_linear.fit(train_vectors, train_data['mood'])
 prediction_linear = classifier_linear.predict(test_vectors)
@@ -63,3 +67,6 @@ prediction_linear = classifier_linear.predict(test_vectors)
 report = classification_report(test_data['mood'], prediction_linear, output_dict=True)
 print('positive:', report['1.0']['recall'])
 print('negative:', report['0.0']['recall'])
+
+#saving the svm model
+pickle.dump(cv, open('model.pkl', 'wb'))
