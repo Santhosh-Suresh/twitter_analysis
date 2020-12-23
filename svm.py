@@ -58,7 +58,7 @@ train_vectors = vectorizer.fit_transform(train_data['review'])
 test_vectors = vectorizer.transform(test_data['review'])
 
 #saving the transform model
-pickle.dump(cv, open('tranform.pkl', 'wb'))
+pickle.dump(vectorizer, open('tranform.pkl', 'wb'))
 
 classifier_linear = svm.SVC(kernel='linear')
 classifier_linear.fit(train_vectors, train_data['mood'])
@@ -69,4 +69,4 @@ print('positive:', report['1.0']['recall'])
 print('negative:', report['0.0']['recall'])
 
 #saving the svm model
-pickle.dump(cv, open('model.pkl', 'wb'))
+pickle.dump(classifier_linear, open('model.pkl', 'wb'))
