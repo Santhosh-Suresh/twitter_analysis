@@ -1,6 +1,7 @@
 import pickle
 
-data = ["i Rahul tiwari, can't verify that the information provide is correct and updated"]
+data = [" xyz do not verify that the information provided is updated and accurate"]
+# data = ["xyz do not verify that the information provided is updated and accurate"]
 #loading the transform model
 tfidf=pickle.load(open('tranform.pkl','rb'))
 
